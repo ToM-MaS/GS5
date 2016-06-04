@@ -1,0 +1,41 @@
+= '#!version:1.0.0.1'
+
+= 'lang.wui = English'
+= 'call_waiting.enable = 1'
+= 'voice.tone.country = Germany'
+= 'auto_provision.pnp_enable = 1'
+= 'auto_provision.mode = 1'
+= 'auto_provision.repeat.enable = 0'
+= 'auto_provision.repeat.minutes = 3600'
+= 'auto_provision.weekly.enalbe = 0'
+= 'auto_provision.weekly.mask = 0123456'
+= 'auto_provision.weekly.begin_time = 00:00'
+= 'auto_provision.weekly.end_time = 00:00'
+= 'auto_provision.server.url = ' + @provisioning_url 
+= 'auto_provision.server.username = '
+= 'auto_provision.server.password = '
+= 'local_time.time_zone = +1'
+= 'local_time.time_zone_name = Germany(Berlin)'
+= 'local_time.summer_time = 2' 
+= 'local_time.dst_time_type = 1' 
+= 'local_time.start_time = ' 
+= 'local_time.end_time = ' 
+= 'local_time.offset_time = 60' 
+
+= 'local_time.ntp_server1 = '
+= 'local_time.ntp_server2 = '
+= 'security.user_password = admin:' + (@phone.http_password.blank? ? '0000' : @phone.http_password.to_s)
+
+
+- @sip_accounts.each_with_index do |sip_account, index|
+  - i = index + 1
+  - sip_account.each_pair do |key, value|
+    = "account.#{i}.#{key} = #{value}"
+
+- @handsets.each_with_index do |handset, index|
+  - i = index + 1
+  - handset.each_pair do |key, value|
+    = "handset.#{i}.#{key} = #{value}"
+
+= "remote_phonebook.data.1.url = #{@phonebook_url}"
+= 'remote_phonebook.data.1.name = Gemeinschaft'
